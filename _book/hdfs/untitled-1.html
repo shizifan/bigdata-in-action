@@ -1,0 +1,945 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>HDFS架构设计 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="untitled.html" />
+    
+    
+    <link rel="prev" href="shi-yan-3.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    大数据实践
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../demo.html">
+            
+                <a href="../demo.html">
+            
+                    
+                    Demo
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Hadoop安装</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../hadoop-an-zhuang/windows-shang-shi-yong-xu-ni-ji-an-zhuang.html">
+            
+                <a href="../hadoop-an-zhuang/windows-shang-shi-yong-xu-ni-ji-an-zhuang.html">
+            
+                    
+                    使用虚拟机安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../hadoop-an-zhuang/zai-centos-7-shang-an-zhuang.html">
+            
+                <a href="../hadoop-an-zhuang/zai-centos-7-shang-an-zhuang.html">
+            
+                    
+                    CentOS 7上安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../hadoop-an-zhuang/untitled.html">
+            
+                <a href="../hadoop-an-zhuang/untitled.html">
+            
+                    
+                    Untitled
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">计算广告</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../ctr/untitled.html">
+            
+                <a href="../ctr/untitled.html">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../ctr/ji-chu-gai-nian.html">
+            
+                <a href="../ctr/ji-chu-gai-nian.html">
+            
+                    
+                    生态模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../ctr/dian-ji-lv-yu-gu.html">
+            
+                <a href="../ctr/dian-ji-lv-yu-gu.html">
+            
+                    
+                    点击率预估
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">HDFS</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="jie-shao.html">
+            
+                <a href="jie-shao.html">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="shi-yan-1-1.html">
+            
+                <a href="shi-yan-1-1.html">
+            
+                    
+                    实验一：分布式存储
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="shi-yan-2.html">
+            
+                <a href="shi-yan-2.html">
+            
+                    
+                    实验二：数据冗余
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="shi-yan-1.html">
+            
+                <a href="shi-yan-1.html">
+            
+                    
+                    HDFS设计目标
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="shi-yan-3.html">
+            
+                <a href="shi-yan-3.html">
+            
+                    
+                    实验三：设计分布式系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="4.6" data-path="untitled-1.html">
+            
+                <a href="untitled-1.html">
+            
+                    
+                    HDFS架构设计
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="untitled.html">
+            
+                <a href="untitled.html">
+            
+                    
+                    HDFS Shell
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="shi-yan-4.html">
+            
+                <a href="shi-yan-4.html">
+            
+                    
+                    实验四：HDFS Shell入门
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.9" data-path="shi-yan-5.html">
+            
+                <a href="shi-yan-5.html">
+            
+                    
+                    实验五：数据拷贝和分布式拷贝
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">MapReduce</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../mapreduce/untitled.html">
+            
+                <a href="../mapreduce/untitled.html">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="../mapreduce/shi-yan-1.html">
+            
+                <a href="../mapreduce/shi-yan-1.html">
+            
+                    
+                    实验一：一道真实的大数据面试题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="../mapreduce/shi-yan-2.html">
+            
+                <a href="../mapreduce/shi-yan-2.html">
+            
+                    
+                    实验二：让问题稍微复杂些
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="../mapreduce/hadoop-jia-gou-she-ji.html">
+            
+                <a href="../mapreduce/hadoop-jia-gou-she-ji.html">
+            
+                    
+                    Hadoop 架构设计
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="../mapreduce/hadoop-streaming.html">
+            
+                <a href="../mapreduce/hadoop-streaming.html">
+            
+                    
+                    Hadoop Streaming
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6" data-path="../mapreduce/shi-yan-3.html">
+            
+                <a href="../mapreduce/shi-yan-3.html">
+            
+                    
+                    实验三：统计特征分布
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.7" data-path="../mapreduce/shi-yan-4.html">
+            
+                <a href="../mapreduce/shi-yan-4.html">
+            
+                    
+                    实验四：数据倾斜
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.8" data-path="../mapreduce/keyvaluepartition-he-sort.html">
+            
+                <a href="../mapreduce/keyvaluepartition-he-sort.html">
+            
+                    
+                    Key，Value，Partition和Sort
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.9" data-path="../mapreduce/er-ci-pai-xu.html">
+            
+                <a href="../mapreduce/er-ci-pai-xu.html">
+            
+                    
+                    实验五：二次排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.10" data-path="../mapreduce/map-reduce-de-ping-jing.html">
+            
+                <a href="../mapreduce/map-reduce-de-ping-jing.html">
+            
+                    
+                    Map Reduce的瓶颈
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Hive</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../hive/untitled.html">
+            
+                <a href="../hive/untitled.html">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="../hive/hql.html">
+            
+                <a href="../hive/hql.html">
+            
+                    
+                    HQL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="../hive/shi-yan-yi-hql-ru-men.html">
+            
+                <a href="../hive/shi-yan-yi-hql-ru-men.html">
+            
+                    
+                    实验一：HQL入门
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="../hive/shi-yan-er-shi-yong-hql-jin-hang-tong-ji.html">
+            
+                <a href="../hive/shi-yan-er-shi-yong-hql-jin-hang-tong-ji.html">
+            
+                    
+                    实验二：使用HQL进行统计
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="../hive/hql-zhuan-huan-cheng-mapreduce.html">
+            
+                <a href="../hive/hql-zhuan-huan-cheng-mapreduce.html">
+            
+                    
+                    HQL转换成MapReduce
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.6" data-path="../hive/shi-yan-san-hql-xing-neng-ping-jing.html">
+            
+                <a href="../hive/shi-yan-san-hql-xing-neng-ping-jing.html">
+            
+                    
+                    实验三：HQL性能瓶颈
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.7" data-path="../hive/dag.html">
+            
+                <a href="../hive/dag.html">
+            
+                    
+                    DAG
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">机器学习</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../ji-qi-xue-xi/jian-jie.html">
+            
+                <a href="../ji-qi-xue-xi/jian-jie.html">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="../ji-qi-xue-xi/te-zheng-gong-cheng.html">
+            
+                <a href="../ji-qi-xue-xi/te-zheng-gong-cheng.html">
+            
+                    
+                    特征工程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="../ji-qi-xue-xi/shi-yan-yi-gou-zao-te-zheng.html">
+            
+                <a href="../ji-qi-xue-xi/shi-yan-yi-gou-zao-te-zheng.html">
+            
+                    
+                    实验一：构造特征
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="../ji-qi-xue-xi/shi-yan-er-te-zheng-xuan-ze.html">
+            
+                <a href="../ji-qi-xue-xi/shi-yan-er-te-zheng-xuan-ze.html">
+            
+                    
+                    实验二：特征选择
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="../ji-qi-xue-xi/mo-xing-xun-lian-yu-yu-ce.html">
+            
+                <a href="../ji-qi-xue-xi/mo-xing-xun-lian-yu-yu-ce.html">
+            
+                    
+                    模型训练与预测
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.6" data-path="../ji-qi-xue-xi/shi-yan-san-logistic-regression.html">
+            
+                <a href="../ji-qi-xue-xi/shi-yan-san-logistic-regression.html">
+            
+                    
+                    实验三：Logistic Regression
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.7" data-path="../ji-qi-xue-xi/mo-xing-ping-gu.html">
+            
+                <a href="../ji-qi-xue-xi/mo-xing-ping-gu.html">
+            
+                    
+                    模型评估
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.8" data-path="../ji-qi-xue-xi/shi-yan-si-ping-gu-zhi-biao-de-xuan-ze.html">
+            
+                <a href="../ji-qi-xue-xi/shi-yan-si-ping-gu-zhi-biao-de-xuan-ze.html">
+            
+                    
+                    实验四：评估指标的选择
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.9" data-path="../ji-qi-xue-xi/ke-shi-hua.html">
+            
+                <a href="../ji-qi-xue-xi/ke-shi-hua.html">
+            
+                    
+                    可视化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.10" data-path="../ji-qi-xue-xi/shi-yan-wu-mo-xing-ke-shi-hua.html">
+            
+                <a href="../ji-qi-xue-xi/shi-yan-wu-mo-xing-ke-shi-hua.html">
+            
+                    
+                    实验五：模型可视化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Spark</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../spark/untitled.html">
+            
+                <a href="../spark/untitled.html">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../spark/rdd-and-dataframe.html">
+            
+                <a href="../spark/rdd-and-dataframe.html">
+            
+                    
+                    RDD & DataFrame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="../spark/shi-yan-yi-shi-yong-spark-gou-zao-mo-xing-te-zheng.html">
+            
+                <a href="../spark/shi-yan-yi-shi-yong-spark-gou-zao-mo-xing-te-zheng.html">
+            
+                    
+                    实验一：使用Spark构造模型特征
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="../spark/mllib.html">
+            
+                <a href="../spark/mllib.html">
+            
+                    
+                    MLlib
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.5" data-path="../spark/spark-sql.html">
+            
+                <a href="../spark/spark-sql.html">
+            
+                    
+                    Spark SQL
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">数据可视化</li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" data-path="../shu-ju-ke-shi-hua/untitled.html">
+            
+                <a href="../shu-ju-ke-shi-hua/untitled.html">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >HDFS架构设计</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="hdfs&#x67B6;&#x6784;&#x8BBE;&#x8BA1;">HDFS&#x67B6;&#x6784;&#x8BBE;&#x8BA1;</h1>
+<h3 id="namenode-&#x548C;-datanode"><strong>Namenode &#x548C; Datanode</strong></h3>
+<pre><code>    HDFS&#x91C7;&#x7528;master/slave&#x67B6;&#x6784;&#x3002;&#x4E00;&#x4E2A;HDFS&#x96C6;&#x7FA4;&#x662F;&#x7531;&#x4E00;&#x4E2A;Namenode&#x548C;&#x4E00;&#x5B9A;&#x6570;&#x76EE;&#x7684;Datanodes&#x7EC4;&#x6210;&#x3002;Namenode&#x662F;&#x4E00;&#x4E2A;&#x4E2D;&#x5FC3;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x8D1F;&#x8D23;&#x7BA1;&#x7406;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x540D;&#x5B57;&#x7A7A;&#x95F4;\(namespace\)&#x4EE5;&#x53CA;&#x5BA2;&#x6237;&#x7AEF;&#x5BF9;&#x6587;&#x4EF6;&#x7684;&#x8BBF;&#x95EE;&#x3002;&#x96C6;&#x7FA4;&#x4E2D;&#x7684;Datanode&#x4E00;&#x822C;&#x662F;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x4E00;&#x4E2A;&#xFF0C;&#x8D1F;&#x8D23;&#x7BA1;&#x7406;&#x5B83;&#x6240;&#x5728;&#x8282;&#x70B9;&#x4E0A;&#x7684;&#x5B58;&#x50A8;&#x3002;HDFS&#x66B4;&#x9732;&#x4E86;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x540D;&#x5B57;&#x7A7A;&#x95F4;&#xFF0C;&#x7528;&#x6237;&#x80FD;&#x591F;&#x4EE5;&#x6587;&#x4EF6;&#x7684;&#x5F62;&#x5F0F;&#x5728;&#x4E0A;&#x9762;&#x5B58;&#x50A8;&#x6570;&#x636E;&#x3002;&#x4ECE;&#x5185;&#x90E8;&#x770B;&#xFF0C;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x5176;&#x5B9E;&#x88AB;&#x5206;&#x6210;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A;&#x6570;&#x636E;&#x5757;&#xFF0C;&#x8FD9;&#x4E9B;&#x5757;&#x5B58;&#x50A8;&#x5728;&#x4E00;&#x7EC4;Datanode&#x4E0A;&#x3002;Namenode&#x6267;&#x884C;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x540D;&#x5B57;&#x7A7A;&#x95F4;&#x64CD;&#x4F5C;&#xFF0C;&#x6BD4;&#x5982;&#x6253;&#x5F00;&#x3001;&#x5173;&#x95ED;&#x3001;&#x91CD;&#x547D;&#x540D;&#x6587;&#x4EF6;&#x6216;&#x76EE;&#x5F55;&#x3002;&#x5B83;&#x4E5F;&#x8D1F;&#x8D23;&#x786E;&#x5B9A;&#x6570;&#x636E;&#x5757;&#x5230;&#x5177;&#x4F53;Datanode&#x8282;&#x70B9;&#x7684;&#x6620;&#x5C04;&#x3002;Datanode&#x8D1F;&#x8D23;&#x5904;&#x7406;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x8BFB;&#x5199;&#x8BF7;&#x6C42;&#x3002;&#x5728;Namenode&#x7684;&#x7EDF;&#x4E00;&#x8C03;&#x5EA6;&#x4E0B;&#x8FDB;&#x884C;&#x6570;&#x636E;&#x5757;&#x7684;&#x521B;&#x5EFA;&#x3001;&#x5220;&#x9664;&#x548C;&#x590D;&#x5236;&#x3002;
+
+    Namenode&#x548C;Datanode&#x88AB;&#x8BBE;&#x8BA1;&#x6210;&#x53EF;&#x4EE5;&#x5728;&#x666E;&#x901A;&#x7684;&#x5546;&#x7528;&#x673A;&#x5668;&#x4E0A;&#x8FD0;&#x884C;&#x3002;&#x8FD9;&#x4E9B;&#x673A;&#x5668;&#x4E00;&#x822C;&#x8FD0;&#x884C;&#x7740;GNU/Linux&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;\(OS\)&#x3002;HDFS&#x91C7;&#x7528;Java&#x8BED;&#x8A00;&#x5F00;&#x53D1;&#xFF0C;&#x56E0;&#x6B64;&#x4EFB;&#x4F55;&#x652F;&#x6301;Java&#x7684;&#x673A;&#x5668;&#x90FD;&#x53EF;&#x4EE5;&#x90E8;&#x7F72;Namenode&#x6216;Datanode&#x3002;&#x7531;&#x4E8E;&#x91C7;&#x7528;&#x4E86;&#x53EF;&#x79FB;&#x690D;&#x6027;&#x6781;&#x5F3A;&#x7684;Java&#x8BED;&#x8A00;&#xFF0C;&#x4F7F;&#x5F97;HDFS&#x53EF;&#x4EE5;&#x90E8;&#x7F72;&#x5230;&#x591A;&#x79CD;&#x7C7B;&#x578B;&#x7684;&#x673A;&#x5668;&#x4E0A;&#x3002;&#x4E00;&#x4E2A;&#x5178;&#x578B;&#x7684;&#x90E8;&#x7F72;&#x573A;&#x666F;&#x662F;&#x4E00;&#x53F0;&#x673A;&#x5668;&#x4E0A;&#x53EA;&#x8FD0;&#x884C;&#x4E00;&#x4E2A;Namenode&#x5B9E;&#x4F8B;&#xFF0C;&#x800C;&#x96C6;&#x7FA4;&#x4E2D;&#x7684;&#x5176;&#x5B83;&#x673A;&#x5668;&#x5206;&#x522B;&#x8FD0;&#x884C;&#x4E00;&#x4E2A;Datanode&#x5B9E;&#x4F8B;&#x3002;&#x8FD9;&#x79CD;&#x67B6;&#x6784;&#x5E76;&#x4E0D;&#x6392;&#x65A5;&#x5728;&#x4E00;&#x53F0;&#x673A;&#x5668;&#x4E0A;&#x8FD0;&#x884C;&#x591A;&#x4E2A;Datanode&#xFF0C;&#x53EA;&#x4E0D;&#x8FC7;&#x8FD9;&#x6837;&#x7684;&#x60C5;&#x51B5;&#x6BD4;&#x8F83;&#x5C11;&#x89C1;&#x3002;
+
+    &#x96C6;&#x7FA4;&#x4E2D;&#x5355;&#x4E00;Namenode&#x7684;&#x7ED3;&#x6784;&#x5927;&#x5927;&#x7B80;&#x5316;&#x4E86;&#x7CFB;&#x7EDF;&#x7684;&#x67B6;&#x6784;&#x3002;Namenode&#x662F;&#x6240;&#x6709;HDFS&#x5143;&#x6570;&#x636E;&#x7684;&#x4EF2;&#x88C1;&#x8005;&#x548C;&#x7BA1;&#x7406;&#x8005;&#xFF0C;&#x8FD9;&#x6837;&#xFF0C;&#x7528;&#x6237;&#x6570;&#x636E;&#x6C38;&#x8FDC;&#x4E0D;&#x4F1A;&#x6D41;&#x8FC7;Namenode&#x3002;
+</code></pre><p><img src="../.gitbook/assets/image.png" alt="HDFS&#x67B6;&#x6784;&#x8BBE;&#x8BA1;"></p>
+<h3 id="&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x540D;&#x5B57;&#x7A7A;&#x95F4;-namespace"><strong>&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x540D;&#x5B57;&#x7A7A;&#x95F4; (namespace)</strong></h3>
+<p>HDFS&#x652F;&#x6301;&#x4F20;&#x7EDF;&#x7684;&#x5C42;&#x6B21;&#x578B;&#x6587;&#x4EF6;&#x7EC4;&#x7EC7;&#x7ED3;&#x6784;&#x3002;&#x7528;&#x6237;&#x6216;&#x8005;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x76EE;&#x5F55;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x6587;&#x4EF6;&#x4FDD;&#x5B58;&#x5728;&#x8FD9;&#x4E9B;&#x76EE;&#x5F55;&#x91CC;&#x3002;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x540D;&#x5B57;&#x7A7A;&#x95F4;&#x7684;&#x5C42;&#x6B21;&#x7ED3;&#x6784;&#x548C;&#x5927;&#x591A;&#x6570;&#x73B0;&#x6709;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7C7B;&#x4F3C;&#xFF1A;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x3001;&#x5220;&#x9664;&#x3001;&#x79FB;&#x52A8;&#x6216;&#x91CD;&#x547D;&#x540D;&#x6587;&#x4EF6;&#x3002;&#x5F53;&#x524D;&#xFF0C;HDFS&#x4E0D;&#x652F;&#x6301;&#x7528;&#x6237;&#x78C1;&#x76D8;&#x914D;&#x989D;&#x548C;&#x8BBF;&#x95EE;&#x6743;&#x9650;&#x63A7;&#x5236;&#xFF0C;&#x4E5F;&#x4E0D;&#x652F;&#x6301;&#x786C;&#x94FE;&#x63A5;&#x548C;&#x8F6F;&#x94FE;&#x63A5;&#x3002;&#x4F46;&#x662F;HDFS&#x67B6;&#x6784;&#x5E76;&#x4E0D;&#x59A8;&#x788D;&#x5B9E;&#x73B0;&#x8FD9;&#x4E9B;&#x7279;&#x6027;&#x3002;</p>
+<p>Namenode&#x8D1F;&#x8D23;&#x7EF4;&#x62A4;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x540D;&#x5B57;&#x7A7A;&#x95F4;&#xFF0C;&#x4EFB;&#x4F55;&#x5BF9;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x540D;&#x5B57;&#x7A7A;&#x95F4;&#x6216;&#x5C5E;&#x6027;&#x7684;&#x4FEE;&#x6539;&#x90FD;&#x5C06;&#x88AB;Namenode&#x8BB0;&#x5F55;&#x4E0B;&#x6765;&#x3002;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;HDFS&#x4FDD;&#x5B58;&#x7684;&#x6587;&#x4EF6;&#x7684;&#x526F;&#x672C;&#x6570;&#x76EE;&#x3002;&#x6587;&#x4EF6;&#x526F;&#x672C;&#x7684;&#x6570;&#x76EE;&#x79F0;&#x4E3A;&#x6587;&#x4EF6;&#x7684;&#x526F;&#x672C;&#x7CFB;&#x6570;&#xFF0C;&#x8FD9;&#x4E2A;&#x4FE1;&#x606F;&#x4E5F;&#x662F;&#x7531;Namenode&#x4FDD;&#x5B58;&#x7684;&#x3002;</p>
+<h3 id="&#x6570;&#x636E;&#x590D;&#x5236;"><strong>&#x6570;&#x636E;&#x590D;&#x5236;</strong></h3>
+<p>HDFS&#x88AB;&#x8BBE;&#x8BA1;&#x6210;&#x80FD;&#x591F;&#x5728;&#x4E00;&#x4E2A;&#x5927;&#x96C6;&#x7FA4;&#x4E2D;&#x8DE8;&#x673A;&#x5668;&#x53EF;&#x9760;&#x5730;&#x5B58;&#x50A8;&#x8D85;&#x5927;&#x6587;&#x4EF6;&#x3002;&#x5B83;&#x5C06;&#x6BCF;&#x4E2A;&#x6587;&#x4EF6;&#x5B58;&#x50A8;&#x6210;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x6570;&#x636E;&#x5757;&#xFF0C;&#x9664;&#x4E86;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x6570;&#x636E;&#x5757;&#x90FD;&#x662F;&#x540C;&#x6837;&#x5927;&#x5C0F;&#x7684;&#x3002;&#x4E3A;&#x4E86;&#x5BB9;&#x9519;&#xFF0C;&#x6587;&#x4EF6;&#x7684;&#x6240;&#x6709;&#x6570;&#x636E;&#x5757;&#x90FD;&#x4F1A;&#x6709;&#x526F;&#x672C;&#x3002;&#x6BCF;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#x6570;&#x636E;&#x5757;&#x5927;&#x5C0F;&#x548C;&#x526F;&#x672C;&#x7CFB;&#x6570;&#x90FD;&#x662F;&#x53EF;&#x914D;&#x7F6E;&#x7684;&#x3002;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x67D0;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#x526F;&#x672C;&#x6570;&#x76EE;&#x3002;&#x526F;&#x672C;&#x7CFB;&#x6570;&#x53EF;&#x4EE5;&#x5728;&#x6587;&#x4EF6;&#x521B;&#x5EFA;&#x7684;&#x65F6;&#x5019;&#x6307;&#x5B9A;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x5728;&#x4E4B;&#x540E;&#x6539;&#x53D8;&#x3002;HDFS&#x4E2D;&#x7684;&#x6587;&#x4EF6;&#x90FD;&#x662F;&#x4E00;&#x6B21;&#x6027;&#x5199;&#x5165;&#x7684;&#xFF0C;&#x5E76;&#x4E14;&#x4E25;&#x683C;&#x8981;&#x6C42;&#x5728;&#x4EFB;&#x4F55;&#x65F6;&#x5019;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x5199;&#x5165;&#x8005;&#x3002;</p>
+<p>Namenode&#x5168;&#x6743;&#x7BA1;&#x7406;&#x6570;&#x636E;&#x5757;&#x7684;&#x590D;&#x5236;&#xFF0C;&#x5B83;&#x5468;&#x671F;&#x6027;&#x5730;&#x4ECE;&#x96C6;&#x7FA4;&#x4E2D;&#x7684;&#x6BCF;&#x4E2A;Datanode&#x63A5;&#x6536;&#x5FC3;&#x8DF3;&#x4FE1;&#x53F7;&#x548C;&#x5757;&#x72B6;&#x6001;&#x62A5;&#x544A;(Blockreport)&#x3002;&#x63A5;&#x6536;&#x5230;&#x5FC3;&#x8DF3;&#x4FE1;&#x53F7;&#x610F;&#x5473;&#x7740;&#x8BE5;Datanode&#x8282;&#x70B9;&#x5DE5;&#x4F5C;&#x6B63;&#x5E38;&#x3002;&#x5757;&#x72B6;&#x6001;&#x62A5;&#x544A;&#x5305;&#x542B;&#x4E86;&#x4E00;&#x4E2A;&#x8BE5;Datanode&#x4E0A;&#x6240;&#x6709;&#x6570;&#x636E;&#x5757;&#x7684;&#x5217;&#x8868;&#x3002;</p>
+<p>&#x53C2;&#x8003;&#x94FE;&#x63A5;&#xFF1A;<a href="http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_design.html" target="_blank">http://hadoop.apache.org/docs/r1.0.4/cn/hdfs_design.html</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="shi-yan-3.html" class="navigation navigation-prev " aria-label="Previous page: 实验三：设计分布式系统">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="untitled.html" class="navigation navigation-next " aria-label="Next page: HDFS Shell">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"HDFS架构设计","level":"4.6","depth":1,"next":{"title":"HDFS Shell","level":"4.7","depth":1,"path":"hdfs/untitled.md","ref":"hdfs/untitled.md","articles":[]},"previous":{"title":"实验三：设计分布式系统","level":"4.5","depth":1,"path":"hdfs/shi-yan-3.md","ref":"hdfs/shi-yan-3.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","livereload"],"pluginsConfig":{"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"hdfs/untitled-1.md","mtime":"2019-01-02T06:11:23.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-02T06:45:18.208Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

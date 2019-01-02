@@ -1,0 +1,931 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>实验三：HQL性能瓶颈 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-hints/plugin-hints.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="dag.html" />
+    
+    
+    <link rel="prev" href="hql-zhuan-huan-cheng-mapreduce.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    大数据实践
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../demo.html">
+            
+                <a href="../demo.html">
+            
+                    
+                    Demo
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Hadoop安装</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../hadoop-an-zhuang/windows-shang-shi-yong-xu-ni-ji-an-zhuang.html">
+            
+                <a href="../hadoop-an-zhuang/windows-shang-shi-yong-xu-ni-ji-an-zhuang.html">
+            
+                    
+                    使用虚拟机安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../hadoop-an-zhuang/zai-centos-7-shang-an-zhuang.html">
+            
+                <a href="../hadoop-an-zhuang/zai-centos-7-shang-an-zhuang.html">
+            
+                    
+                    CentOS 7上安装
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.3" data-path="../hadoop-an-zhuang/untitled.html">
+            
+                <a href="../hadoop-an-zhuang/untitled.html">
+            
+                    
+                    Untitled
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">计算广告</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../ctr/untitled.html">
+            
+                <a href="../ctr/untitled.html">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../ctr/ji-chu-gai-nian.html">
+            
+                <a href="../ctr/ji-chu-gai-nian.html">
+            
+                    
+                    生态模式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../ctr/dian-ji-lv-yu-gu.html">
+            
+                <a href="../ctr/dian-ji-lv-yu-gu.html">
+            
+                    
+                    点击率预估
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">HDFS</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../hdfs/jie-shao.html">
+            
+                <a href="../hdfs/jie-shao.html">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../hdfs/shi-yan-1-1.html">
+            
+                <a href="../hdfs/shi-yan-1-1.html">
+            
+                    
+                    实验一：分布式存储
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="../hdfs/shi-yan-2.html">
+            
+                <a href="../hdfs/shi-yan-2.html">
+            
+                    
+                    实验二：数据冗余
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="../hdfs/shi-yan-1.html">
+            
+                <a href="../hdfs/shi-yan-1.html">
+            
+                    
+                    HDFS设计目标
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="../hdfs/shi-yan-3.html">
+            
+                <a href="../hdfs/shi-yan-3.html">
+            
+                    
+                    实验三：设计分布式系统
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.6" data-path="../hdfs/untitled-1.html">
+            
+                <a href="../hdfs/untitled-1.html">
+            
+                    
+                    HDFS架构设计
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.7" data-path="../hdfs/untitled.html">
+            
+                <a href="../hdfs/untitled.html">
+            
+                    
+                    HDFS Shell
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.8" data-path="../hdfs/shi-yan-4.html">
+            
+                <a href="../hdfs/shi-yan-4.html">
+            
+                    
+                    实验四：HDFS Shell入门
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.9" data-path="../hdfs/shi-yan-5.html">
+            
+                <a href="../hdfs/shi-yan-5.html">
+            
+                    
+                    实验五：数据拷贝和分布式拷贝
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">MapReduce</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../mapreduce/untitled.html">
+            
+                <a href="../mapreduce/untitled.html">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="../mapreduce/shi-yan-1.html">
+            
+                <a href="../mapreduce/shi-yan-1.html">
+            
+                    
+                    实验一：一道真实的大数据面试题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="../mapreduce/shi-yan-2.html">
+            
+                <a href="../mapreduce/shi-yan-2.html">
+            
+                    
+                    实验二：让问题稍微复杂些
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="../mapreduce/hadoop-jia-gou-she-ji.html">
+            
+                <a href="../mapreduce/hadoop-jia-gou-she-ji.html">
+            
+                    
+                    Hadoop 架构设计
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.5" data-path="../mapreduce/hadoop-streaming.html">
+            
+                <a href="../mapreduce/hadoop-streaming.html">
+            
+                    
+                    Hadoop Streaming
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.6" data-path="../mapreduce/shi-yan-3.html">
+            
+                <a href="../mapreduce/shi-yan-3.html">
+            
+                    
+                    实验三：统计特征分布
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.7" data-path="../mapreduce/shi-yan-4.html">
+            
+                <a href="../mapreduce/shi-yan-4.html">
+            
+                    
+                    实验四：数据倾斜
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.8" data-path="../mapreduce/keyvaluepartition-he-sort.html">
+            
+                <a href="../mapreduce/keyvaluepartition-he-sort.html">
+            
+                    
+                    Key，Value，Partition和Sort
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.9" data-path="../mapreduce/er-ci-pai-xu.html">
+            
+                <a href="../mapreduce/er-ci-pai-xu.html">
+            
+                    
+                    实验五：二次排序
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.10" data-path="../mapreduce/map-reduce-de-ping-jing.html">
+            
+                <a href="../mapreduce/map-reduce-de-ping-jing.html">
+            
+                    
+                    Map Reduce的瓶颈
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Hive</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="untitled.html">
+            
+                <a href="untitled.html">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="hql.html">
+            
+                <a href="hql.html">
+            
+                    
+                    HQL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="shi-yan-yi-hql-ru-men.html">
+            
+                <a href="shi-yan-yi-hql-ru-men.html">
+            
+                    
+                    实验一：HQL入门
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="shi-yan-er-shi-yong-hql-jin-hang-tong-ji.html">
+            
+                <a href="shi-yan-er-shi-yong-hql-jin-hang-tong-ji.html">
+            
+                    
+                    实验二：使用HQL进行统计
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="hql-zhuan-huan-cheng-mapreduce.html">
+            
+                <a href="hql-zhuan-huan-cheng-mapreduce.html">
+            
+                    
+                    HQL转换成MapReduce
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="6.6" data-path="shi-yan-san-hql-xing-neng-ping-jing.html">
+            
+                <a href="shi-yan-san-hql-xing-neng-ping-jing.html">
+            
+                    
+                    实验三：HQL性能瓶颈
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.7" data-path="dag.html">
+            
+                <a href="dag.html">
+            
+                    
+                    DAG
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">机器学习</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../ji-qi-xue-xi/jian-jie.html">
+            
+                <a href="../ji-qi-xue-xi/jian-jie.html">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="../ji-qi-xue-xi/te-zheng-gong-cheng.html">
+            
+                <a href="../ji-qi-xue-xi/te-zheng-gong-cheng.html">
+            
+                    
+                    特征工程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="../ji-qi-xue-xi/shi-yan-yi-gou-zao-te-zheng.html">
+            
+                <a href="../ji-qi-xue-xi/shi-yan-yi-gou-zao-te-zheng.html">
+            
+                    
+                    实验一：构造特征
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="../ji-qi-xue-xi/shi-yan-er-te-zheng-xuan-ze.html">
+            
+                <a href="../ji-qi-xue-xi/shi-yan-er-te-zheng-xuan-ze.html">
+            
+                    
+                    实验二：特征选择
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="../ji-qi-xue-xi/mo-xing-xun-lian-yu-yu-ce.html">
+            
+                <a href="../ji-qi-xue-xi/mo-xing-xun-lian-yu-yu-ce.html">
+            
+                    
+                    模型训练与预测
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.6" data-path="../ji-qi-xue-xi/shi-yan-san-logistic-regression.html">
+            
+                <a href="../ji-qi-xue-xi/shi-yan-san-logistic-regression.html">
+            
+                    
+                    实验三：Logistic Regression
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.7" data-path="../ji-qi-xue-xi/mo-xing-ping-gu.html">
+            
+                <a href="../ji-qi-xue-xi/mo-xing-ping-gu.html">
+            
+                    
+                    模型评估
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.8" data-path="../ji-qi-xue-xi/shi-yan-si-ping-gu-zhi-biao-de-xuan-ze.html">
+            
+                <a href="../ji-qi-xue-xi/shi-yan-si-ping-gu-zhi-biao-de-xuan-ze.html">
+            
+                    
+                    实验四：评估指标的选择
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.9" data-path="../ji-qi-xue-xi/ke-shi-hua.html">
+            
+                <a href="../ji-qi-xue-xi/ke-shi-hua.html">
+            
+                    
+                    可视化
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.10" data-path="../ji-qi-xue-xi/shi-yan-wu-mo-xing-ke-shi-hua.html">
+            
+                <a href="../ji-qi-xue-xi/shi-yan-wu-mo-xing-ke-shi-hua.html">
+            
+                    
+                    实验五：模型可视化
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Spark</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../spark/untitled.html">
+            
+                <a href="../spark/untitled.html">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../spark/rdd-and-dataframe.html">
+            
+                <a href="../spark/rdd-and-dataframe.html">
+            
+                    
+                    RDD & DataFrame
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="../spark/shi-yan-yi-shi-yong-spark-gou-zao-mo-xing-te-zheng.html">
+            
+                <a href="../spark/shi-yan-yi-shi-yong-spark-gou-zao-mo-xing-te-zheng.html">
+            
+                    
+                    实验一：使用Spark构造模型特征
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="../spark/mllib.html">
+            
+                <a href="../spark/mllib.html">
+            
+                    
+                    MLlib
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.5" data-path="../spark/spark-sql.html">
+            
+                <a href="../spark/spark-sql.html">
+            
+                    
+                    Spark SQL
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">数据可视化</li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" data-path="../shu-ju-ke-shi-hua/untitled.html">
+            
+                <a href="../shu-ju-ke-shi-hua/untitled.html">
+            
+                    
+                    简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >实验三：HQL性能瓶颈</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="&#x5B9E;&#x9A8C;&#x4E09;&#xFF1A;hql&#x6027;&#x80FD;&#x74F6;&#x9888;">&#x5B9E;&#x9A8C;&#x4E09;&#xFF1A;HQL&#x6027;&#x80FD;&#x74F6;&#x9888;</h1>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="hql-zhuan-huan-cheng-mapreduce.html" class="navigation navigation-prev " aria-label="Previous page: HQL转换成MapReduce">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="dag.html" class="navigation navigation-next " aria-label="Next page: DAG">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"实验三：HQL性能瓶颈","level":"6.6","depth":1,"next":{"title":"DAG","level":"6.7","depth":1,"path":"hive/dag.md","ref":"hive/dag.md","articles":[]},"previous":{"title":"HQL转换成MapReduce","level":"6.5","depth":1,"path":"hive/hql-zhuan-huan-cheng-mapreduce.md","ref":"hive/hql-zhuan-huan-cheng-mapreduce.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["hints","livereload"],"pluginsConfig":{"hints":{"danger":"fa fa-exclamation-circle","info":"fa fa-info-circle","tip":"fa fa-mortar-board","working":"fa fa-wrench"},"livereload":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"hive/shi-yan-san-hql-xing-neng-ping-jing.md","mtime":"2019-01-02T06:11:23.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-02T06:45:18.208Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-livereload/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
