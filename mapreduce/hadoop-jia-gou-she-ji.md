@@ -1,6 +1,6 @@
 # Hadoop 架构设计
 
-![](../.gitbook/assets/image%20%282%29.png)
+
 
 **JobTracker & TaskTracker**
 
